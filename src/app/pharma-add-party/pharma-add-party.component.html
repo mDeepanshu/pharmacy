@@ -1,0 +1,108 @@
+<div class="container-fluid">
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <h3>ADD NEW PARTY</h3>
+      <hr />
+      <form
+        [formGroup]="newItemForm"
+        (ngSubmit)="onSubmit()"
+        (keydown.enter)="$event.preventDefault()"
+        #aForm
+      >
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">PARTY NAME</label>
+            <input
+              formControlName="party_name"
+              type="text"
+              class="form-control"
+              id="inputEmail4"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="gstnumber">GST NUMBER</label>
+            <input
+              formControlName="gst_no"
+              type="text"
+              class="form-control"
+              id="gstnumber"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="phone">CONTACT NUMBER</label>
+            <input
+              formControlName="phone"
+              type="text"
+              class="form-control"
+              id="phone"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="ifsc">IFSC</label>
+            <input
+              formControlName="ifsc_code"
+              type="text"
+              class="form-control"
+              id="ifsc"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="acnumber">ACCOUNT NUMBER</label>
+            <input
+              formControlName="account_no"
+              type="text"
+              class="form-control"
+              id="acnumber"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <button class="btn btn-secondary" type="submit">ADD</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-4">
+      <!-- <h3>ADD NEW COMPANY</h3>
+      <hr />
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">COMPANY NAME</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="COMPANY NAME"
+            #company_name
+            (input)="companyName(company_name.value)"
+            matInput
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of companyOptions"
+              [value]="option.party_name"
+              (onSelectionChange)="onCompanySelect(option, $event)"
+            >
+              {{ option.party_name }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <button
+            class="btn btn-secondary"
+            (click)="newCompany(company_name.value)"
+          >
+            Add company
+          </button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+<div class="container-fluid">
+  <form
+    [formGroup]="newSellForm"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    #aForm
+  >
+    <div class="d-flex justify-content-between">
+      <div class="col-8">
+        <div class="row justify-content-between" formGroupName="setTwo">
+          <!--  -->
+          <div class="form-group col-md-4">
+            <label for="customername">CUSTOMER NAME</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="customername"
+              id="customername"
+              #patient_name
+              (input)="matchPatient(patient_name.value)"
+              [matAutocomplete]="autoThree"
+            />
+            <mat-autocomplete #autoThree="matAutocomplete">
+              <mat-option
+                *ngFor="let option of patientList"
+                [value]="option.first_name"
+                (onSelectionChange)="onPatientSelect(option, $event)"
+              >
+                {{ option.first_name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <!--  -->
+          <div class="form-group col-md-4">
+            <button type="button" class="btn btn-warning" (click)="addNewSet()">
+              ADD
+            </button>
+          </div>
+        </div>
+        <div class="row" formGroupName="setOne">
+          <div class="form-group col-md-8">
+            <label for="inputPassword4">MEDICINE NAME</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputPassword4"
+              formControlName="item_name"
+              #medicine_name
+              (input)="getMedicine(medicine_name.value)"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of medicineOption"
+                [value]="option.item_id.item_name"
+                (onSelectionChange)="onMedicineSelect(option, $event)"
+              >
+                {{ option.item_id.item_name }} | {{ option.stock }} |
+                {{ option.expiry_date }} | {{ option.batch_no }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="quantity">QUANTITY</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="unit"
+              id="quantity"
+            />
+          </div>
+          <div class="form-group col-md-2">
+            <label for="mrp">MRP</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="mrp"
+              id="mrp"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ITEM NAME</th>
+                <th scope="col">GST</th>
+                <th scope="col">UNIT</th>
+                <th scope="col">MRP</th>
+                <th scope="col">Pack</th>
+                <th scope="col">TOTAL</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of itemsSet; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ option.item_name }}</td>
+                <td>{{ option.gst }}</td>
+                <td>{{ option.unit }}</td>
+                <td>{{ option.mrp }}</td>
+                <td>{{ option.packing }}</td>
+                <td>
+                  {{ (option.mrp / option.packing) * option.unit }}
+                </td>
+                <td>
+                  <button type="button">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      (click)="removeItem(i)"
+                      width="23"
+                      height="23"
+                      fill="currentColor"
+                      class="bi bi-trash-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row" formGroupName="setTwo">
+          <div class="form-group col-md-8">
+            <label for="total">TOTAL</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="total"
+              id="total"
+            />
+          </div>
+          <div class="form-group col-md-8">
+            <label for="discount">DISCOUNT</label>
+            <input
+              type="number"
+              (input)="calculate_disc()"
+              class="form-control"
+              formControlName="discount"
+              id="discount"
+            />
+          </div>
+          <div class="form-group col-md-8">
+            <label for="gtotal">GRAND TOTAL</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="grand_total"
+              id="gtotal"
+            />
+          </div>
+          <div class="form-group col-md-8">
+            <label for="payment_option">TRANSACTION TYPE</label>
+            <select
+              class="custom-select"
+              formControlName="payment_option"
+              id="payment_option"
+            >
+              <option value="CREDIT">CREDIT</option>
+              <option value="CASH">CASH</option>
+              <option value="UPI">UPI</option>
+            </select>
+          </div>
+          <div class="form-group col-md-8">
+            <button type="submit" class="btn btn-secondary">
+              SAVE BILL & PRINT
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

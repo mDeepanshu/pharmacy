@@ -1,0 +1,291 @@
+<div class="container-fluid">
+  <form
+    [formGroup]="newItemForm"
+    (ngSubmit)="onSubmit()"
+    (keydown.enter)="$event.preventDefault()"
+    #aForm
+  >
+    <div class="row">
+      <div class="col-7">
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="party_name">PARTY NAME</label>
+            <input
+              type="text"
+              class="form-control"
+              id="party_name"
+              #party_name
+              formControlName="party_name"
+              (input)="matchParty(party_name.value)"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of partyOptions"
+                (onSelectionChange)="onSelectParty(option._id)"
+                [value]="option.party_name"
+              >
+                {{ option.party_name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="form-group col-md-2" formGroupName="setOne" hidden>
+            <label for="amount">AMOUNT</label>
+            <input
+              formControlName="amount"
+              type="number"
+              class="form-control"
+              id="amount"
+            />
+          </div>
+          <div class="form-group col-md-3" formGroupName="setOne">
+            <label for="company">COMPANY</label>
+            <input
+              formControlName="company"
+              type="text"
+              class="form-control"
+              id="company"
+            />
+          </div>
+        </div>
+        <div class="div" formGroupName="setOne">
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label for="inputPassword4">MEDICINE NAME</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputPassword4"
+                formControlName="item_name"
+                #medicine_name
+                (input)="getMedicine(medicine_name.value)"
+                [matAutocomplete]="autoTwo"
+              />
+              <mat-autocomplete #autoTwo="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of medicineOption"
+                  [value]="option.item_name"
+                  (onSelectionChange)="medicineSelect(option)"
+                >
+                  {{ option.item_name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+            <div class="form-group col-md-3">
+              <mat-form-field
+                appearance="fill"
+                style="margin-top: 13px; width: 12em"
+              >
+                <mat-label>Expiry Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="expiry_date"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="units">TOTAL UNITS</label>
+              <input
+                formControlName="unit"
+                type="number"
+                class="form-control"
+                id="units"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for="packing">PACKING</label>
+              <input
+                formControlName="packing"
+                type="number"
+                class="form-control"
+                id="packing"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="rate">RATE</label>
+              <input
+                formControlName="rate"
+                type="number"
+                class="form-control"
+                id="rate"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="mrp">MRP</label>
+              <input
+                formControlName="mrp"
+                type="number"
+                class="form-control"
+                id="mrp"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="batch_no">BATCH NUMBER</label>
+              <input
+                formControlName="batch_no"
+                type="text"
+                class="form-control"
+                id="batch_no"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for="discount">Discount</label>
+              <input
+                formControlName="discount"
+                type="number"
+                class="form-control"
+                id="discount"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="gst">GST SLAB</label>
+              <select
+                formControlName="gst"
+                class="custom-select"
+                id="gst"
+                style="width: 8em; margin-top: 8px"
+              >
+                <option value="0">0</option>
+                <option value="5">5</option>
+                <option value="12">12</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="quantity_a">QUANTITY</label>
+              <input
+                formControlName="quantity_a"
+                type="number"
+                class="form-control"
+                id="quantity_a"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="quantity_b">QUANTITY(Free)</label>
+              <input
+                formControlName="quantity_b"
+                type="number"
+                class="form-control"
+                id="quantity_b"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2" style="margin-top: 7.8em">
+        <div class="row">
+          <button type="button" class="btn btn-secondary" (click)="addToSet()">
+            ADD
+          </button>
+        </div>
+        <hr />
+        <div class="row">
+          <button type="submit" class="btn btn-secondary">SAVE</button>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group col-md-9">
+          <label for="sub_total">SUB TOTAL</label>
+          <input
+            formControlName="sub_total"
+            type="number"
+            class="form-control"
+            id="sub_total"
+          />
+        </div>
+        <div class="form-group col-md-9">
+          <label for="discount_total">DISCOUNT</label>
+          <input
+            formControlName="discount_total"
+            type="number"
+            #disc
+            (input)="calcDiscount(disc.value)"
+            class="form-control"
+            id="discount_total"
+          />
+        </div>
+        <div class="form-group col-md-9">
+          <label for="total_gst">GST TOTAL</label>
+          <input
+            formControlName="total_gst"
+            type="number"
+            class="form-control"
+            id="total_gst"
+          />
+        </div>
+        <div class="form-group col-md-9">
+          <label for="grand_total">GRAND TOTAL</label>
+          <input
+            formControlName="grand_total"
+            type="number"
+            class="form-control"
+            id="grand_total"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ITEM NAME</th>
+          <th scope="col">PACKING</th>
+          <th scope="col">QUANTITY</th>
+          <th scope="col">QUANTITY(Free)</th>
+          <th scope="col">UNIT</th>
+          <th scope="col">RATE</th>
+          <th scope="col">MRP</th>
+          <th scope="col">GST</th>
+          <th scope="col">BATCH NUMBER</th>
+          <th scope="col">EXPIRY DATE</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let option of medicineList; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ option.item_name }}</td>
+          <td>{{ option.packing }}</td>
+          <td>{{ option.quantity_a }}</td>
+          <td>{{ option.quantity_b }}</td>
+          <td>{{ option.unit }}</td>
+          <td>{{ option.rate }}</td>
+          <td>{{ option.mrp }}</td>
+          <td>{{ option.gst }}</td>
+          <td>{{ option.batch_no }}</td>
+          <td>{{ option.expiry_date }}</td>
+          <td>
+            <button type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                (click)="removeItem(i)"
+                width="23"
+                height="23"
+                fill="currentColor"
+                class="bi bi-trash-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                />
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

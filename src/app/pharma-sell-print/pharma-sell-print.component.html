@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <div class="col">
+      <h1>ASHOKA PHARMACY</h1>
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <!-- <div class="col">
+      <img src="../../assets/logotipo.svg" alt="logotipo" class="logotipo" />
+    </div> -->
+
+    <div class="col">
+      <!-- <h2>ADDRESS</h2> -->
+      <!-- <p>91 886 73 76</p> -->
+      <div class="address second">
+        <!-- CONTACT NUMBER<br /> -->
+        {{ gstNumber }}<br />
+        {{ date }}
+        <!-- <p>4610-108 Felgueiras</p> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-gutters items-group">
+    <div class="col-5 label">
+      <p>Name: {{ obj.customername }}[{{ obj.patientRegNumber }}]</p>
+    </div>
+    <div class="col-5">
+      <p>Payment Mode: {{ obj.payment_option }}</p>
+    </div>
+  </div>
+
+  <div class="row no-gutters items-group">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-4">PARTICULARS</th>
+            <th scope="col">HSN</th>
+            <th scope="col">EXP</th>
+            <th scope="col">MRP</th>
+            <th scope="col">QTY</th>
+            <th scope="col">PACK</th>
+            <th scope="col">GST</th>
+            <th scope="col">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let option of itemsSet; index as i">
+            <td>{{ option.item_name }}</td>
+            <td>{{ option.HSN }}</td>
+            <td>{{ option.exp }}</td>
+            <td>{{ option.mrp }}</td>
+            <td>{{ option.unit }}</td>
+            <td>{{ option.packing }}</td>
+            <td>{{ option.gst }}</td>
+            <td>{{ option.unit * (option.mrp / option.packing) }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <p>Equipamento:</p>
+      <p>Cor:</p>
+      <p>Serial:</p>
+      <p>Problema:</p>
+      <p>Observações:</p>
+    </div>
+
+    <div class="col-9">
+      <p>Telemóvel > Apple > Iphone 6</p>
+      <p>Cinza</p>
+      <p>appl2015ewfwejuk23423</p>
+      <p>Não arranca</p>
+      <p>codigo: 1798 - tem de ficar pronto até dia 12/02/2019</p> -->
+    </div>
+  </div>
+
+  <div class="row no-gutters items-group">
+    <div class="col"></div>
+    <div class="col">
+      <!-- <div class="col-4"></div> -->
+      <div class="col-8">
+        <div class="row">
+          <div class="col">
+            <div class="row">Discount:{{ obj.discount }}</div>
+            <!-- <div class="row">Round Off:</div> -->
+          </div>
+          <div class="col">
+            <div class="row">
+              Bill Amount:{{ obj.total }}<br />
+              Net Amount:{{ obj.grand_total }}<br />
+              <!-- Amount Paid:<br /> -->
+              <!-- Balance:<br /> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <p class="label">Condições Gerais:</p>
+      <ul class="disclaimer">
+        <li>Prazo para levantar 90 dias</li>
+        <li>Garantia 90 dias</li>
+        <li>Esta assistência só é entregue a quem apresentar este documento</li>
+        <li>
+          O preço acresce 10% a cada 30 dias após fim do prazo de levantamento
+          (taxa de conservação)
+        </li>
+        <li>
+          Os dados do cliente, acima mencionados, ficam registados na N
+          Reparações apenas para efeitos de comunicação em relação às suas
+          assistências e facturação
+        </li>
+      </ul> -->
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="col">
+      <p class="disclaimer signature-field">
+        <!-- Declaro que li e concordo com o disposto neste documento em 03/02/2019 -->
+      </p>
+    </div>
+  </div>
+</div>
